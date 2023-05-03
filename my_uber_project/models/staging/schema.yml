@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+  - name: uber_eats
+    columns:
+      - name: type
+      - name: date
+      - name: total
+      - name: driver
+      - name: restaurant
+
+  - name: uber_ride
+    columns:
+      - name: type
+      - name: date
+      - name: total
+      - name: driver

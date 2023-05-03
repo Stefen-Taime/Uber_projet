@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "0.0.0.0:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: mysecretpassword
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    command:
+      - bash
+      - -c
+      - |
+        superset fab create-admin --username admin --firstname Admin --lastname User --email admin@superset.com --password admin;
+        superset db upgrade;
+        superset init;
+        gunicorn --bind 0.0.0.0:8088 --workers 2 --threads 8 --timeout 120 --limit-request-line 0 --limit-request-field_size 0 "superset.app:create_app()"
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-mysecretpassword}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-mysecretpassword}@postgres:5432/${DB_NAME:-postgres}
+      - CACHE_TYPE=redis
+      - CACHE_DEFAULT_TIMEOUT=300
+      - CACHE_REDIS_URL=redis://redis:6379/0
+      - ADMIN_USERNAME=${SUPERSET_USER:-admin}
+      - ADMIN_FIRST_NAME=${SUPERSET_FIRST_NAME:-Admin}
+      - ADMIN_LAST_NAME=${SUPERSET_LAST_NAME:-User}
+      - ADMIN_EMAIL=${SUPERSET_EMAIL:-admin@superset.com}
+      - ADMIN_PASSWORD=${SUPERSET_PASSWORD:-admin}
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./superset_config.py:/app/pythonpath/superset_config.py
+  
+  redis:
+    image: redis:6
+    container_name: superset_redis
+
+volumes:
+  postgres_data:
