@@ -187,4 +187,4 @@ Throughout this project, you:
 
 By following these steps, you successfully created a proof-of-concept (POC) for a data pipeline that can help you gain a better understanding of your expenses related to Uber and Uber Eats. This project can be further customized and extended to accommodate additional data sources and requirements, as well as to integrate with other data analytics and visualization tools.
 
-[Medium]([https://github.com/Stefen-Taime/Uber_projet](https://medium.com/@stefentaime_10958/uber-project-analyzing-personal-uber-and-uber-eats-expenses-with-elt-data-pipeline-using-dbt-91ead4aea5df))
+https://medium.com/@stefentaime_10958/uber-project-analyzing-personal-uber-and-uber-eats-expenses-with-elt-data-pipeline-using-dbt-91ead4aea5df
