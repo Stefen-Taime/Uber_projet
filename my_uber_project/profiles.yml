@@ -1,0 +1,23 @@
+default:
+  outputs:
+    dev:
+      type: postgres
+      threads: 3
+      host: localhost
+      port: 5432
+      user: dbt
+      pass: dbt_password
+      dbname: olap
+      schema: public
+
+    prod:
+      type: postgres
+      threads: 1
+      host: [host]
+      port: [port]
+      user: [prod_username]
+      pass: [prod_password]
+      dbname: [dbname]
+      schema: [prod_schema]
+
+  target: dev      
