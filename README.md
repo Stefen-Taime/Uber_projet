@@ -185,6 +185,4 @@ Throughout this project, you:
 5.  Built a series of dbt models for staging, intermediate, and aggregated data.
 6.  Analyzed and visualized the data using Power BI (not covered in detail here but assumed as part of the project).
 
-By following these steps, you successfully created a proof-of-concept (POC) for a data pipeline that can help you gain a better understanding of your expenses related to Uber and Uber Eats. This project can be further customized and extended to accommodate additional data sources and requirements, as well as to integrate with other data analytics and visualization tools.
-
 https://medium.com/@stefentaime_10958/uber-project-analyzing-personal-uber-and-uber-eats-expenses-with-elt-data-pipeline-using-dbt-91ead4aea5df
